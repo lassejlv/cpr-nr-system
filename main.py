@@ -1,33 +1,51 @@
 cprs = ["1910055999"]
+import os
+from termcolor import colored
 
-usernameInput = input("Scan dit sygesikringsbevis... ")
+password = ""
 
-password = "000000"
+if os.path.exists("password.txt"):
+    with open("password.txt", "r") as f:
+       password = f.read()
+else:
+    password = "000000"
+
+
+print()
+usernameInput = input(colored("🔎 Scan dit sygesikringsbevis... Eller tast ind => ", "blue"))
+print()
 
 if usernameInput not in cprs:
-    print("Du er ikke med i listen af godkendte cpr numere!")
+    print()
+    print(colored("❌ Du er ikke med i listen af godkendte cpr numere!", "red"))
+    print()
 else:
+    print()
+    typePassword = input(colored("🔑 Skriv Password: ", "grey"))
+    print()
 
-    passwordInput = input("Hvad er adgangskoden? ")
+    if (typePassword == password):
+       if os.path.exists("password.txt"):
+           with open("password.txt", "r") as f:
+               if (typePassword == password):
+                   print()
+                   print(colored("✅ Du er nu logget in i systemet!", "green"))
+                   print()
+       else:
+           print(colored("🚨 Du skal nu lave en ny kode...", "cyan"))
+           enterNewPassWord = input(colored("🔏 Skriv den nye adgagns kode for at få adgang: ", "magenta"))
 
-    if (passwordInput == password):
-        print("Du skal nu lave en ny kode...")
-        newPassword = input("Skriv den nye kode:")
-        password = newPassword
-        
-        if (len(password) == 6):
-            ## Printe den nye kode...
-            print("Koden blev ændret til " + password)
-
-            enterNewPassWord = input("Skriv den nye adgagns kode for at få adgang:")
-
-            if (enterNewPassWord == password):
-                print("Du er blevet godkendt!")
-            else:
-                print("Du er logget ud!")
-
-        else:
-            print("Koden skal være 6 cifre")
-        
+           if (len(enterNewPassWord) == 6):
+               with open("password.txt", "w") as f:
+                 f.write(enterNewPassWord)
+                 print()
+                 print(colored("✅ Din adgangskode er nu gemt!", "green"))
+                 print()
+           else:
+               print()
+               print(colored("🚨 Adgangskoden må/skal være 6 cifre... Prøv igen.", "yellow"))  
+               print() 
     else:
-        print("Forkert adgangskode...")
+        print()
+        print(colored("❌ Forkert adgangskode...", "red"))
+        print()
