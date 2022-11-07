@@ -1,9 +1,19 @@
-cprs = ["1910055999"]
+cprs = ""
 import os
+import json
+import requests
 from termcolor import colored
+
+
+# We are fetching the cprs from cdn.hypll.org
+url = "https://cdn.hypll.org/services/programing/cprnr-system/data.json"
+res = requests.get(url)
+cprs = json.loads(res.text)["cprsNrs"]
+
 
 password = ""
 
+# Checking if the password.txt file exists
 if os.path.exists("password.txt"):
     with open("password.txt", "r") as f:
        password = f.read()
