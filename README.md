@@ -14,5 +14,5 @@ pip3 install pyinstaller
 
 ```bash
 # building the main.py file
-pyinstaller --onefile main.py
+pyinstaller main.py --onefile --icon=logo.ico --name cprNrSystem.exe
 ```
