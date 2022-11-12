@@ -1,3 +1,6 @@
 os
 termcolor
 colored
+webbrowser
+requests
+json
